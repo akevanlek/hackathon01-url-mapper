@@ -15,7 +15,7 @@ namespace UrlMapper {
                 var indexOfData = Patterns.IndexOf ("{");
                 var key = Patterns.Substring (indexOfData);
                 var patternUrlForTarget = Patterns.Substring (initIndex, (Patterns.Length - key.Length));
-                
+
                 var result = target.Substring (initIndex + patternUrlForTarget.Length);
                 dicToStoreResults.Add (key, result);
             }
@@ -25,9 +25,9 @@ namespace UrlMapper {
 
             const int initIndex = 0;
             var indexOfData = Patterns.IndexOf ("{");
-            var data = Patterns.Substring (indexOfData);
+            var key = Patterns.Substring (indexOfData);
 
-            var patternFormat = Patterns.Substring (initIndex, data.Length);
+            var patternFormat = Patterns.Substring (initIndex, (Patterns.Length - key.Length));
             return textToCompare.StartsWith (patternFormat);
         }
     }
