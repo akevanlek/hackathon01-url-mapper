@@ -35,5 +35,16 @@ namespace UrlMapper.Tests
             Assert.True(dic.ContainsKey(key));
             Assert.Equal(expectedResult, dic[key]);
         }
+
+        [InlineData("http://google.com/n?s={keyword}", "http://google.com/n?s=A2752348", "{keyword}", "A2752348")]
+        [InlineData("http://hackathon.com/{username}/service/{service-id}", "http://hackathon.com/test123/service/svid456", "{username}", "test123"," {service-id}", "svid456")]
+        [InlineData("http://hackathon.com/{sdgdsg}/service/{service-id}", "http://hackathon.com/test123/service/svid456", "{sdgdsg}", "test123"," {service-id}", "svid456")]
+        [InlineData("http://hackathon.com/{sdgdsg}/service=/{service-id}", "http://hackathon.com/test123/service=/svid455556", "{sdgdsg}", "test123"," {service-id}", "svid455556")]
+        [InlineData("http://hackathon.com/{sdgdsg}/service=/{service-id}/{service-id56}/as/{e-id56}", "http://hackathon.com/test123/service=/svid455556/222/as/asas", "{sdgdsg}", "test123"," {service-id}", "svid455556", "{service-id56}", "222", "{e-id56}", "asas")]
+        [InlineData("http://hackathon.com/{sdgdsg}/service=/{service-id}/{service-id56}", "http://hackathon.com/test123/service=/svid455556/222", "{sdgdsg}", "test123"," {service-id}", "svid455556", "{service-id56}", "222")]
+        public void TestMultiLink()
+        {
+
+        }
     }
 }
