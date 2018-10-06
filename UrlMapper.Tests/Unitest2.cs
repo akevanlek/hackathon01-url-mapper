@@ -18,8 +18,10 @@ namespace UrlMapper.Tests
         [InlineData("http://google.com/?s={keyword}", "http://google.com/?s=A2752348", "{keyword}", "A2752348")]
         [InlineData("http://google.com/?//s={keyword}", "http://google.com/?//s=A27523485666", "{keyword}", "A27523485666")]
         [InlineData(@"http://google.com/?//s={keyrtktyktyjd[]rj4362#$#$%^%^%$word}", @"http://google.com/?//s=A275234*&%^&*(&*)($$$@@$$%$%_/85666", "{keyrtktyktyjd[]rj4362#$#$%^%^%$word}", "A275234*&%^&*(&*)($$$@@$$%$%_/85666")]
-
-
+        [InlineData("http://google.com/as.as/?[][][]//s={keyword}", "http://google.com/as.as/?[][][]//s=5689+", "{keyword}", "5689+")]
+        [InlineData("http://google.com/?s/56/฿หฟฟหฟดหดฟ={****keyword}", "http://google.com/?s/56/฿หฟฟหฟดหดฟ=A2752348", "{****keyword}", "A2752348")]
+        [InlineData("http://google.com/n?s={keyword}", "http://google.com/n?s=A2752348", "{keyword}", "A2752348")]   
+        [InlineData("http://google.com/n/t/n/tn/n/y/t?s=/n{keyword}", "http://google.com/n/t/n/tn/n/y/t?s=/nA2752348", "{keyword}", "A2752348")]    
         public void ManaLinkTo(string patternUrl, string tragetUrl, string key, string expectedResult)
         {
             var builder = new SimpleStringParameterBuilder();
