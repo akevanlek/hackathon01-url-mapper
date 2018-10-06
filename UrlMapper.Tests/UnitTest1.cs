@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UrlMapper;
 using Xunit;
 
@@ -7,17 +8,19 @@ namespace UrlMapper.Tests {
     public class UnitTest1 {
 
         [Theory]
-        [InlineData ("https://mana.com/linkto/{link-id}", "https://mana.com/linkto/A2752348", "A2752348")]
-        public void ManaLinkTo (string patternUrl, string tragetUrl, string expectedResult) {
+        [InlineData ("https://mana.com/linkto/{link-id}", "https://mana.com/linkto/A2752348", "{link-id}", "A2752348")]
+        [InlineData ("http://google.com/?s={keyword}", "http://google.com/?s=A2752348", "{keyword}", "A2752348")]
+        public void ManaLinkTo (string patternUrl, string tragetUrl, string key, string expectedResult) {
             var builder = new SimpleStringParameterBuilder ();
 
-            var dd = builder.Parse (patternUrl);
-            bool ismatch = dd.IsMatched (tragetUrl);
-            Assert.True (ismatch);
-            // var dic = new Dictionary<string, string> ();
+            var result = builder.Parse (patternUrl);
+            bool isMatch = result.IsMatched (tragetUrl);
+            Assert.True (isMatch);
 
-            // dd.ExtractVariables (tragetUrl, dic);
-            // Assert.Equal (expectedResult, dic["{link-id}"]);
+            var dic = new Dictionary<string, string> ();
+            result.ExtractVariables (tragetUrl, dic);
+            Assert.True (dic.ContainsKey (key));
+            Assert.Equal (expectedResult, dic[key]);
         }
     }
 }
